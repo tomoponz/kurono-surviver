@@ -1,69 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time-Stop Survivor Proto</title>
-    <style>
-        body { margin: 0; overflow: hidden; background-color: #111; color: #fff; font-family: sans-serif; user-select: none; }
-        #game-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        
-        /* UI Layer */
-        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
-        
-        .bar-container { background-color: #333; border: 2px solid #555; border-radius: 4px; overflow: hidden; }
-        .bar-fill { height: 100%; transition: width 0.1s linear; }
-        
-        #hp-container { position: absolute; top: 20px; left: 20px; width: 200px; height: 20px; }
-        #hp-fill { background-color: #ff4444; width: 100%; }
-        
-        #exp-container { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 400px; height: 15px; }
-        #exp-fill { background-color: #44ff44; width: 0%; }
-        #level-text { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); font-weight: bold; text-shadow: 1px 1px 2px #000; }
-        
-        #skill-container { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 300px; height: 10px; }
-        #skill-fill { background-color: #44aaff; width: 0%; }
-        #skill-text { position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%); font-size: 14px; text-shadow: 1px 1px 2px #000; }
-
-        /* Screens */
-        .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 20; pointer-events: auto; }
-        
-        h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px #000; }
-        
-        .btn { padding: 15px 30px; margin: 10px; font-size: 1.2rem; cursor: pointer; background-color: #555; color: white; border: 2px solid #777; border-radius: 8px; transition: background 0.2s; }
-        .btn:hover { background-color: #777; }
-        
-        #levelup-choices { display: flex; gap: 20px; }
-        .choice-btn { width: 200px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .choice-btn span { font-size: 0.9rem; color: #aaa; margin-top: 10px; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Survivor Prototype</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div id="game-container"></div>
-    
-    <div id="ui-layer">
-        <div id="hp-container" class="bar-container"><div id="hp-fill" class="bar-fill"></div></div>
-        <div id="exp-container" class="bar-container"><div id="exp-fill" class="bar-fill"></div></div>
-        <div id="level-text">Lv 1</div>
-        
-        <div id="skill-text">E KEY: TIME STOP</div>
-        <div id="skill-container" class="bar-container"><div id="skill-fill" class="bar-fill"></div></div>
+  <div id="game-container"></div>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div class="row">
+      <div class="label" id="level-text">Lv 1</div>
     </div>
 
-    <div id="levelup-screen" class="screen">
-        <h1 style="color: #44ff44;">LEVEL UP!</h1>
-        <div id="levelup-choices">
-            <button class="btn choice-btn" id="choice-firerate">Fire Rate UP<br><span>発射間隔が短くなる</span></button>
-            <button class="btn choice-btn" id="choice-speed">Bullet Speed UP<br><span>弾の飛ぶ速度が上がる</span></button>
-            <button class="btn choice-btn" id="choice-multishot">Multi Shot<br><span>発射する弾数が増える</span></button>
-        </div>
+    <div class="bar">
+      <div class="barFill" id="hp-fill"></div>
+      <div class="barText">HP</div>
     </div>
 
-    <div id="gameover-screen" class="screen">
-        <h1 style="color: #ff4444;">GAME OVER</h1>
-        <button class="btn" id="restart-btn">Restart Game</button>
+    <div class="bar">
+      <div class="barFill" id="exp-fill"></div>
+      <div class="barText">EXP</div>
     </div>
 
-    <script type="module" src="./main.js"></script>
+    <div class="bar">
+      <div class="barFill" id="skill-fill"></div>
+      <div class="barText" id="skill-text">E KEY: TIME STOP</div>
+    </div>
+
+    <div class="hint">WASD: move / E: time stop / Auto attack</div>
+  </div>
+
+  <!-- Level Up -->
+  <div id="levelup-screen" class="overlay" style="display:none;">
+    <div class="panel">
+      <h2>LEVEL UP</h2>
+      <button id="choice-firerate">Fire Rate +</button>
+      <button id="choice-speed">Bullet Speed +</button>
+      <button id="choice-multishot">Multi Shot +</button>
+    </div>
+  </div>
+
+  <!-- Game Over -->
+  <div id="gameover-screen" class="overlay" style="display:none;">
+    <div class="panel">
+      <h2>GAME OVER</h2>
+      <button id="restart-btn">Restart</button>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
